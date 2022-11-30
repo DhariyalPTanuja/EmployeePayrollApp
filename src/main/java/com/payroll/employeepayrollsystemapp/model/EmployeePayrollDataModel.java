@@ -1,8 +1,16 @@
 package com.payroll.employeepayrollsystemapp.model;
 
-import java.time.LocalDate;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+import java.time.LocalDate;
+@Entity   //structure define
+@Table(name = "employee_data")
 public class EmployeePayrollDataModel {
+    @Id                     //Primary key define
+    @GeneratedValue          // auto increment id
     private int empId;
     private  String name;
     private long salary;
@@ -10,6 +18,19 @@ public class EmployeePayrollDataModel {
     private LocalDate startDate;
     private String note;
     private String profilePic;
+
+    public EmployeePayrollDataModel() {
+    }
+
+    public EmployeePayrollDataModel(int empId, String name, long salary, String gender, LocalDate startDate, String note, String profilePic) {
+        this.empId = empId;
+        this.name = name;
+        this.salary = salary;
+        this.gender = gender;
+        this.startDate = startDate;
+        this.note = note;
+        this.profilePic = profilePic;
+    }
 
     public int getEmpId() {
         return empId;
