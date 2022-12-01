@@ -1,28 +1,21 @@
 package com.payroll.employeepayrollsystemapp.controller;
 
+import com.payroll.employeepayrollsystemapp.dto.EmpPayrollDTO;
 import com.payroll.employeepayrollsystemapp.model.EmployeePayrollDataModel;
 import com.payroll.employeepayrollsystemapp.service.EmpPayrollService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/epayrolluc2api")
-public class EmployeeControllerUC2 {
-
-    @Autowired
-    //UC2
+@RequestMapping("/emppayroll")
+public class EmployeeController {
     EmpPayrollService empService;
-    //display welcome msg
-    @GetMapping("/welcome")
-    public String welcomeMsg() {
-        return empService.welcomeMsg();
-    }
+
     //save the employee data
     @PostMapping("/save")
-    public EmployeePayrollDataModel insertEmpData(@RequestBody EmployeePayrollDataModel empObj){
-        return empService.addEmpData(empObj);
+    public EmployeePayrollDataModel insertEmpData(@RequestBody EmployeePayrollDataModel emp){
+        return empService.addEmpData(emp);
     }
     //fetch the data by id
     @GetMapping("/getdata/{id}")
@@ -43,6 +36,12 @@ public class EmployeeControllerUC2 {
     @DeleteMapping("/deletedata/{empId}")
     public void deleteEmployeePayrollData(@PathVariable int empId){
         empService.deleteEmpData(empId);
+    }
+
+    //UC3 introducing DTO
+    @PostMapping("/savedto")
+    public EmployeePayrollDataModel insertEmpDataUseDto(@RequestBody EmpPayrollDTO empDto){
+        return empService.addEmpDataDto(empDto);
     }
 
 

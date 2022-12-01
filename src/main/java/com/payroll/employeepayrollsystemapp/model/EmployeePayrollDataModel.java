@@ -1,5 +1,6 @@
 package com.payroll.employeepayrollsystemapp.model;
 
+import com.payroll.employeepayrollsystemapp.dto.EmpPayrollDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -22,16 +23,25 @@ public class EmployeePayrollDataModel {
     public EmployeePayrollDataModel() {
     }
 
-    public EmployeePayrollDataModel(int empId, String name, long salary, String gender, LocalDate startDate, String note, String profilePic) {
-        this.empId = empId;
-        this.name = name;
-        this.salary = salary;
-        this.gender = gender;
-        this.startDate = startDate;
-        this.note = note;
-        this.profilePic = profilePic;
+//For save
+    public EmployeePayrollDataModel(EmpPayrollDTO dtoSaveObj) {
+        this.name = dtoSaveObj.name;
+        this.salary = dtoSaveObj.salary;
+        this.gender =dtoSaveObj.gender;
+        this.startDate = dtoSaveObj.startDate;
+        this.note = dtoSaveObj.note;
+        this.profilePic =dtoSaveObj. profilePic;
     }
-
+    //For update
+    public EmployeePayrollDataModel(int empId, EmpPayrollDTO dtoObj) {
+        this.empId = empId;
+        this.name = dtoObj.name;
+        this.salary = dtoObj.salary;
+        this.gender = dtoObj.gender;
+        this.startDate = dtoObj.startDate;
+        this.note = dtoObj.note;
+        this.profilePic =dtoObj. profilePic;
+    }
     public int getEmpId() {
         return empId;
     }

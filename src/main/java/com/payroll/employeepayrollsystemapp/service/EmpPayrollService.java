@@ -1,9 +1,9 @@
 package com.payroll.employeepayrollsystemapp.service;
 
+import com.payroll.employeepayrollsystemapp.dto.EmpPayrollDTO;
 import com.payroll.employeepayrollsystemapp.model.EmployeePayrollDataModel;
 import com.payroll.employeepayrollsystemapp.repository.EmpPayrollRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.spel.support.ReflectivePropertyAccessor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,5 +46,12 @@ public class EmpPayrollService  {
     public void deleteEmpData(int id){
         empRepository.deleteById(id);;
     }
-    
+
+    public EmployeePayrollDataModel addEmpDataDto(EmpPayrollDTO empDto){
+       // EmployeePayrollDataModel empModel = null;
+        EmployeePayrollDataModel empModel = new EmployeePayrollDataModel(empDto);
+        return empRepository.save(empModel);
+    }
+
+   
 }
