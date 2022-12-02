@@ -43,6 +43,10 @@ public class EmployeeController {
     public EmployeePayrollDataModel insertEmpDataUseDto(@RequestBody EmpPayrollDTO empDto){
         return empService.addEmpDataDto(empDto);
     }
-
+// Update with DTO
+    @PutMapping("/updatedata/{id}")
+    public EmployeePayrollDataModel updateEmpDataDto(@RequestBody EmpPayrollDTO empDto,@PathVariable int id){
+        return empService.updateEmpDataDto(empDto,id);
+    }
 
 }

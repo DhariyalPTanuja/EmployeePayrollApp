@@ -4,6 +4,7 @@ import com.payroll.employeepayrollsystemapp.dto.EmpPayrollDTO;
 import com.payroll.employeepayrollsystemapp.model.EmployeePayrollDataModel;
 import com.payroll.employeepayrollsystemapp.repository.EmpPayrollRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,5 +54,18 @@ public class EmpPayrollService  {
         return empRepository.save(empModel);
     }
 
-   
+    public EmployeePayrollDataModel updateEmpDataDto(EmpPayrollDTO empDto, int id){
+        EmployeePayrollDataModel empUpdateObj = empRepository.getById(id);
+        EmployeePayrollDataModel empObj = new EmployeePayrollDataModel(empDto);
+      //  Optional<EmployeePayrollDataModel> empUpdateObj = empRepository.findById(id);
+        empUpdateObj.setName(empObj.getName());
+        empUpdateObj.setSalary(empObj.getSalary());
+        empUpdateObj.setGender(empObj.getGender());
+        empUpdateObj.setStartDate(empObj.getStartDate());
+        empUpdateObj.setNote(empObj.getNote());
+        empUpdateObj.setProfilePic(empObj.getProfilePic());
+        empRepository.save(empUpdateObj);
+        return empUpdateObj;
+
+    }
 }
