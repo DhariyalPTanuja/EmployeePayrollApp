@@ -1,10 +1,13 @@
 package com.payroll.employeepayrollsystemapp.controller;
 
 import com.payroll.employeepayrollsystemapp.dto.EmpPayrollDTO;
+import com.payroll.employeepayrollsystemapp.dto.ResponseDTO;
 import com.payroll.employeepayrollsystemapp.model.EmployeePayrollDataModel;
 import com.payroll.employeepayrollsystemapp.repository.EmpPayrollRepo;
 import com.payroll.employeepayrollsystemapp.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -28,10 +31,17 @@ public class EmployeeController {
     //save the employee data
     @Autowired
     EmpPayrollRepo empRepo;
-    @PostMapping("/savedto")
-    public EmployeePayrollDataModel insertEmpDataUseDto(@RequestBody EmpPayrollDTO empDto){
-        empModelList.add(empService.addEmpDataDto(empDto));
-        return empService.addEmpDataDto(empDto);
+//    @PostMapping("/savedto")
+//    public EmployeePayrollDataModel insertEmpDataUseDto(@RequestBody EmpPayrollDTO empDto){
+//        empModelList.add(empService.addEmpDataDto(empDto));
+//        return empService.addEmpDataDto(empDto);
+//    }
+    @PostMapping("/saveresopnse")
+    public ResponseEntity<ResponseDTO> insertEmpDataUseResponse(@RequestBody EmpPayrollDTO empDto){
+        EmployeePayrollDataModel employeeModel = empService.addEmpDataDto(empDto);
+        ResponseDTO responseDTO = new ResponseDTO("New employee added",employeeModel);
+        ResponseEntity<ResponseDTO> response = new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        return response;
     }
     //fetch the data by id
     @GetMapping("/getdata/{id}")
@@ -39,6 +49,16 @@ public class EmployeeController {
         empModelList.add(empService.getEmpData(id));
         return empService.getEmpData(id);
     }
+    //get data -using ResponseDto
+    @GetMapping("/getdataresponse/{id}")
+    public ResponseEntity<ResponseDTO> fetchEmpDataResponse(@PathVariable int id){
+        EmployeePayrollDataModel employeeModel = empService.getEmpData(id);
+        ResponseDTO responseDTO = new ResponseDTO("fetch employee record by id",employeeModel);
+        ResponseEntity<ResponseDTO> response = new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        return response;
+    }
+
+
     //fetching all the data
     @GetMapping("/getalldata")
     public List<EmployeePayrollDataModel> fetchAllEmData(){
