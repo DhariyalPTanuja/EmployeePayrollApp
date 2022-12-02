@@ -31,11 +31,11 @@ public class EmployeeController {
     //save the employee data
     @Autowired
     EmpPayrollRepo empRepo;
-//    @PostMapping("/savedto")
-//    public EmployeePayrollDataModel insertEmpDataUseDto(@RequestBody EmpPayrollDTO empDto){
-//        empModelList.add(empService.addEmpDataDto(empDto));
-//        return empService.addEmpDataDto(empDto);
-//    }
+    @PostMapping("/savedto")
+    public EmployeePayrollDataModel insertEmpDataUseDto(@RequestBody EmpPayrollDTO empDto){
+        empModelList.add(empService.addEmpDataDto(empDto));
+        return empService.addEmpDataDto(empDto);
+    }
     @PostMapping("/saveresopnse")
     public ResponseEntity<ResponseDTO> insertEmpDataUseResponse(@RequestBody EmpPayrollDTO empDto){
         EmployeePayrollDataModel employeeModel = empService.addEmpDataDto(empDto);
