@@ -1,0 +1,7 @@
+2022-12-02T16:00:25.448+05:30  INFO 5080 --- [restartedMain] .p.e.EmployeePayrollSystemAppApplication : Starting EmployeePayrollSystemAppApplication using Java 17.0.2 with PID 5080 (C:\Users\TANUJA\IdeaProjects\EmployeePayrollSystemApp\target\classes started by TANUJA in C:\Users\TANUJA\IdeaProjects\EmployeePayrollSystemApp)
+2022-12-02T16:00:25.452+05:30 DEBUG 5080 --- [restartedMain] .p.e.EmployeePayrollSystemAppApplication : Running with Spring Boot v3.0.0, Spring v6.0.2
+2022-12-02T16:00:25.454+05:30  INFO 5080 --- [restartedMain] .p.e.EmployeePayrollSystemAppApplication : No active profile set, falling back to 1 default profile: "default"
+2022-12-02T16:00:28.379+05:30  WARN 5080 --- [restartedMain] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2022-12-02T16:00:30.657+05:30  WARN 5080 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-12-02T16:00:31.180+05:30  INFO 5080 --- [restartedMain] .p.e.EmployeePayrollSystemAppApplication : Started EmployeePayrollSystemAppApplication in 6.543 seconds (process running for 7.741)
+2022-12-02T16:00:31.184+05:30  INFO 5080 --- [restartedMain] .p.e.EmployeePayrollSystemAppApplication : Employee payroll start .. using annotation Slf4j
