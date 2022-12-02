@@ -5,6 +5,7 @@ import com.payroll.employeepayrollsystemapp.dto.ResponseDTO;
 import com.payroll.employeepayrollsystemapp.model.EmployeePayrollDataModel;
 import com.payroll.employeepayrollsystemapp.repository.EmpPayrollRepo;
 import com.payroll.employeepayrollsystemapp.service.IEmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,8 +37,9 @@ public class EmployeeController {
         empModelList.add(empService.addEmpDataDto(empDto));
         return empService.addEmpDataDto(empDto);
     }
+    //using @Valid annotation for apply validation
     @PostMapping("/saveresopnse")
-    public ResponseEntity<ResponseDTO> insertEmpDataUseResponse(@RequestBody EmpPayrollDTO empDto){
+    public ResponseEntity<ResponseDTO> insertEmpDataUseResponse(@Valid @RequestBody EmpPayrollDTO empDto){
         EmployeePayrollDataModel employeeModel = empService.addEmpDataDto(empDto);
         ResponseDTO responseDTO = new ResponseDTO("New employee added",employeeModel);
         ResponseEntity<ResponseDTO> response = new ResponseEntity<>(responseDTO, HttpStatus.OK);
@@ -66,7 +68,7 @@ public class EmployeeController {
     }
     //update the exist employee data
     @PutMapping("/updatedata/{id}")
-    public EmployeePayrollDataModel updateEmpDataDto(@RequestBody EmpPayrollDTO empDto,@PathVariable int id){
+    public EmployeePayrollDataModel updateEmpDataDto(@Valid @RequestBody EmpPayrollDTO empDto,@PathVariable int id){
         empModelList.add(empService.updateEmpDataDto(empDto,id));
         return empService.updateEmpDataDto(empDto,id);
     }
