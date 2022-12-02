@@ -16,6 +16,7 @@ public class EmpPayrollService implements IEmployeeService {
     public String welcomeMsg() {
         return "welcome  to EmployeePayroll App";
     }
+    //to add the employee data
     public EmployeePayrollDataModel addEmpDataDto(EmpPayrollDTO empDto){
         // EmployeePayrollDataModel empModel = null;
         EmployeePayrollDataModel empModel = new EmployeePayrollDataModel(empDto);

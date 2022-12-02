@@ -44,6 +44,16 @@ public class EmployeeController {
     public List<EmployeePayrollDataModel> fetchAllEmData(){
         return empService.getAllEmpData();
     }
-
+    //update the exist employee data
+    @PutMapping("/updatedata/{id}")
+    public EmployeePayrollDataModel updateEmpDataDto(@RequestBody EmpPayrollDTO empDto,@PathVariable int id){
+        empModelList.add(empService.updateEmpDataDto(empDto,id));
+        return empService.updateEmpDataDto(empDto,id);
+    }
+    //delete the data
+    @DeleteMapping("/deletedata/{empId}")
+    public void deleteEmployeePayrollData(@PathVariable int empId){
+        empService.deleteEmpData(empId);
+    }
 
 }
