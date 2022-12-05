@@ -56,6 +56,7 @@ public class EmpPayrollService implements IEmployeeService {
         empUpdateObj.get().setStartDate(empObj.getStartDate());
         empUpdateObj.get().setNote(empObj.getNote());
         empUpdateObj.get().setProfilePic(empObj.getProfilePic());
+        empUpdateObj.get().setDepartments(empObj.getDepartments());
         empRepository.save(empUpdateObj.get());
         return empUpdateObj.get();
 
