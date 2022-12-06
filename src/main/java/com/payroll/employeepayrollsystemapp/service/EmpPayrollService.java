@@ -29,7 +29,6 @@ public class EmpPayrollService implements IEmployeeService {
     }
     //to add the employee data
     public EmployeePayrollDataModel addEmpData(EmpPayrollDTO empDto){
-       log.info("User using create Api to add data in database");
         EmployeePayrollDataModel empModel = new EmployeePayrollDataModel(empDto);
         return empRepository.save(empModel);
     }
@@ -39,6 +38,12 @@ public class EmpPayrollService implements IEmployeeService {
         EmployeePayrollDataModel empGetObj = empRepository.findById(id).get();
         return empGetObj;
     }
+
+    @Override
+    public List<EmployeePayrollDataModel> findEmployeesByDepartment(String departments) {
+        return empRepository.findEmployeesByDepartment(departments);
+    }
+
     public List<EmployeePayrollDataModel> getAllEmpData() {
         List<EmployeePayrollDataModel> empList = empRepository.findAll();
         return empList;

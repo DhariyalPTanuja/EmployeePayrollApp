@@ -9,6 +9,7 @@ public interface IEmployeeService {
     public String welcomeMsg();
     public EmployeePayrollDataModel addEmpData(EmpPayrollDTO empDto);
     public EmployeePayrollDataModel getEmpData(int id);
+    public List<EmployeePayrollDataModel> findEmployeesByDepartment(String departments);
     public List<EmployeePayrollDataModel> getAllEmpData();
     public EmployeePayrollDataModel updateEmpData(EmpPayrollDTO empDto, int id);
     public EmployeePayrollDataModel deleteEmpData(int id);

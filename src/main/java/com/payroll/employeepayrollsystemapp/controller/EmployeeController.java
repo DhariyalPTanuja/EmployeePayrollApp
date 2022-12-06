@@ -51,6 +51,14 @@ public class EmployeeController {
         ResponseEntity<ResponseDTO> response = new ResponseEntity<>(responseDTO, HttpStatus.OK);
         return response;
     }
+
+    @GetMapping("/department/{department}")
+    public ResponseEntity<ResponseDTO> fetchEmpDepartmentData(@PathVariable("department") String department){
+        List<EmployeePayrollDataModel> employeeModellist = empService.findEmployeesByDepartment(department);
+        ResponseDTO responseDTO = new ResponseDTO("fetch employee record by department",employeeModellist);
+        ResponseEntity<ResponseDTO> response = new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        return response;
+    }
     //using @Valid annotation for apply validation
     //create Employee Payroll data
 @PostMapping("/save")

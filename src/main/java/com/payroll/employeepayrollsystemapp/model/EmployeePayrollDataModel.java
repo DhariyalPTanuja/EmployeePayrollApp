@@ -12,6 +12,7 @@ import java.util.List;
 public @Data class EmployeePayrollDataModel {
     @Id                     //Primary key define
     @GeneratedValue(strategy = GenerationType.IDENTITY)        // auto increment id
+//    @Column(name="employee_id")
     private int empId;
     private  String name;
     private long salary;
@@ -19,7 +20,8 @@ public @Data class EmployeePayrollDataModel {
     private LocalDate startDate;
     private String note;
     private String profilePic;
-    @ElementCollection        // to declare attribute as a List
+    @ElementCollection
+    // to declare attribute as a List
     private List<String> departments;
     public EmployeePayrollDataModel() {
 
