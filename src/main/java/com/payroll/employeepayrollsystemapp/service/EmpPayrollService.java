@@ -2,6 +2,7 @@ package com.payroll.employeepayrollsystemapp.service;
 
 import com.payroll.employeepayrollsystemapp.dto.EmpPayrollDTO;
 import com.payroll.employeepayrollsystemapp.exceptions.EmployeePayrollException;
+import com.payroll.employeepayrollsystemapp.exceptions.EmployeePayrollExceptionHandler;
 import com.payroll.employeepayrollsystemapp.model.EmployeePayrollDataModel;
 import com.payroll.employeepayrollsystemapp.repository.EmpPayrollRepo;
 import lombok.extern.slf4j.Slf4j;
@@ -22,14 +23,7 @@ public class EmpPayrollService implements IEmployeeService {
    public List<EmployeePayrollDataModel> getEmployeePayrollData() {
             return employeePayrollDataModelList;
    }
-   //Exception throw
-//    public EmployeePayrollDataModel getEmpData(int empId) throws EmployeePayrollException{
-////        EmployeePayrollDataModel empGetObj = empRepository.findById(id).get();
-//        return employeePayrollDataModelList.stream()
-//                .filter(empData -> empData.getEmpId() == empId)
-//                .findFirst()
-//                .orElseThrow(() -> new EmployeePayrollException("Employee Not found"));
-//    }
+
     public String welcomeMsg() {
         return "welcome  to EmployeePayroll App";
     }
@@ -40,12 +34,12 @@ public class EmpPayrollService implements IEmployeeService {
         return empRepository.save(empModel);
     }
 
-    public EmployeePayrollDataModel getEmpData(int id){
+    public EmployeePayrollDataModel getEmpData(int id) throws EmployeePayrollException{
        log.info("user retrieve all the data form database");
         EmployeePayrollDataModel empGetObj = empRepository.findById(id).get();
         return empGetObj;
     }
-    public List<EmployeePayrollDataModel> getAllEmpData(){
+    public List<EmployeePayrollDataModel> getAllEmpData() {
         List<EmployeePayrollDataModel> empList = empRepository.findAll();
         return empList;
     }
@@ -57,7 +51,7 @@ public EmployeePayrollDataModel updateEmpData(EmpPayrollDTO empDto, int id) {
      return  empObj;
 
     }
-    public EmployeePayrollDataModel deleteEmpData(int empId) {
+    public EmployeePayrollDataModel deleteEmpData(int empId) throws EmployeePayrollException {
         EmployeePayrollDataModel empGetObj = empRepository.findById(empId).get();
         empRepository.deleteById(empId);
        return employeePayrollDataModelList.stream()
