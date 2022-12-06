@@ -10,8 +10,7 @@ import java.util.Map;
 
 @Repository
 public interface EmpPayrollRepo extends JpaRepository<EmployeePayrollDataModel, Integer> {
-    @Query(value = "select * from employee_data,employee_payroll_data_model_departments where emp_Id = empid and departments = :department" , nativeQuery = true)
+    @Query(value = "select * from employee_payroll_table,employee_department where employee_id = id and department = department" ,nativeQuery = true)
     List<EmployeePayrollDataModel> findEmployeesByDepartment(String departments);
-
 
 }

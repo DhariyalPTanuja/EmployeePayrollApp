@@ -38,7 +38,7 @@ public class EmpPayrollService implements IEmployeeService {
         EmployeePayrollDataModel empGetObj = empRepository.findById(id).get();
         return empGetObj;
     }
-
+//get data by  bases on department
     @Override
     public List<EmployeePayrollDataModel> findEmployeesByDepartment(String departments) {
         return empRepository.findEmployeesByDepartment(departments);
@@ -51,7 +51,8 @@ public class EmpPayrollService implements IEmployeeService {
 
 public EmployeePayrollDataModel updateEmpData(EmpPayrollDTO empDto, int id) {
     Optional<EmployeePayrollDataModel> empUpdateObj = empRepository.findById(id);
-    EmployeePayrollDataModel empObj = new EmployeePayrollDataModel(id,empDto);
+   // EmployeePayrollDataModel empObj = new EmployeePayrollDataModel(id,empDto);
+    EmployeePayrollDataModel empObj = new EmployeePayrollDataModel(empDto);
    empRepository.save(empObj);
      return  empObj;
 

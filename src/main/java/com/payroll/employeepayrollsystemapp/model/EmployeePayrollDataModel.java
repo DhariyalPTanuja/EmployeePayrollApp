@@ -8,11 +8,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity   //structure define
-@Table(name = "employee_data")
+@Table(name = "employee_payroll_table")
 public @Data class EmployeePayrollDataModel {
     @Id                     //Primary key define
-    @GeneratedValue(strategy = GenerationType.IDENTITY)        // auto increment id
-//    @Column(name="employee_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // auto increment
+    @Column(name = "employee_id")
     private int empId;
     private  String name;
     private long salary;
@@ -20,14 +20,19 @@ public @Data class EmployeePayrollDataModel {
     private LocalDate startDate;
     private String note;
     private String profilePic;
-    @ElementCollection
     // to declare attribute as a List
+    @ElementCollection
+    @CollectionTable(name = "employee_department", joinColumns = @JoinColumn(name="id"))
+    @Column(name = "department")
     private List<String> departments;
     public EmployeePayrollDataModel() {
 
     }
-//For save
-    public EmployeePayrollDataModel(EmpPayrollDTO dtoSaveObj) {
+    public EmployeePayrollDataModel(EmpPayrollDTO dtoObj) {
+        this.updateEmployeePayrollDataModel(dtoObj);
+
+    }
+    public void updateEmployeePayrollDataModel(EmpPayrollDTO dtoSaveObj) {
         this.name = dtoSaveObj.name;
         this.salary = dtoSaveObj.salary;
         this.gender =dtoSaveObj.gender;
@@ -36,17 +41,17 @@ public @Data class EmployeePayrollDataModel {
         this.profilePic =dtoSaveObj.profilePic;
         this.departments =dtoSaveObj.departments;
     }
-    //For update
-    public EmployeePayrollDataModel(int empId, EmpPayrollDTO dtoObj) {
-        this.empId = empId;
-        this.name = dtoObj.name;
-        this.salary = dtoObj.salary;
-        this.gender = dtoObj.gender;
-        this.startDate = dtoObj.startDate;
-        this.note = dtoObj.note;
-        this.profilePic =dtoObj. profilePic;
-        this.departments=dtoObj.departments;
-    }
+//    public EmployeePayrollDataModel(int empId, EmpPayrollDTO dtoObj) {
+//        this.empId = empId;
+//        this.name = dtoObj.name;
+//        this.salary = dtoObj.salary;
+//        this.gender = dtoObj.gender;
+//        this.startDate = dtoObj.startDate;
+//        this.note = dtoObj.note;
+//        this.profilePic =dtoObj. profilePic;
+//        this.departments=dtoObj.departments;
+//    }
+//
 
 
 }
