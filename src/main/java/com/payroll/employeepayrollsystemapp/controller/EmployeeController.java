@@ -6,6 +6,7 @@ import com.payroll.employeepayrollsystemapp.model.EmployeePayrollDataModel;
 import com.payroll.employeepayrollsystemapp.repository.EmpPayrollRepo;
 import com.payroll.employeepayrollsystemapp.service.IEmployeeService;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@Slf4j
 @RequestMapping("/emppayroll")
 public class EmployeeController {
     //EmpPayrollService empService;
@@ -32,50 +34,51 @@ public class EmployeeController {
     //save the employee data
     @Autowired
     EmpPayrollRepo empRepo;
-    @PostMapping("/savedto")
-    public EmployeePayrollDataModel insertEmpDataUseDto(@RequestBody EmpPayrollDTO empDto){
-        empModelList.add(empService.addEmpDataDto(empDto));
-        return empService.addEmpDataDto(empDto);
-    }
-    //using @Valid annotation for apply validation
-    @PostMapping("/saveresopnse")
-    public ResponseEntity<ResponseDTO> insertEmpDataUseResponse(@Valid @RequestBody EmpPayrollDTO empDto){
-        EmployeePayrollDataModel employeeModel = empService.addEmpDataDto(empDto);
-        ResponseDTO responseDTO = new ResponseDTO("New employee added",employeeModel);
+//fetching or retrieve all the data
+    @GetMapping("/get")
+    public ResponseEntity<ResponseDTO> fetchEmpDataResponse(){
+        log.info("retrieve data from employee payroll database");
+        empModelList = empService.getAllEmpData();
+        ResponseDTO responseDTO = new ResponseDTO("fetch employee record successfully",empModelList);
         ResponseEntity<ResponseDTO> response = new ResponseEntity<>(responseDTO, HttpStatus.OK);
         return response;
     }
-    //fetch the data by id
-    @GetMapping("/getdata/{id}")
-    public EmployeePayrollDataModel fetchEmpData(@PathVariable int id){
-        empModelList.add(empService.getEmpData(id));
-        return empService.getEmpData(id);
-    }
-    //get data -using ResponseDto
-    @GetMapping("/getdataresponse/{id}")
-    public ResponseEntity<ResponseDTO> fetchEmpDataResponse(@PathVariable int id){
+    //get data by id
+    @GetMapping("/get/{id}")
+    public ResponseEntity<ResponseDTO> fetchEmpDataResponseById(@PathVariable int id){
         EmployeePayrollDataModel employeeModel = empService.getEmpData(id);
         ResponseDTO responseDTO = new ResponseDTO("fetch employee record by id",employeeModel);
         ResponseEntity<ResponseDTO> response = new ResponseEntity<>(responseDTO, HttpStatus.OK);
         return response;
     }
+    //using @Valid annotation for apply validation
+    //create Employee Payroll data
+@PostMapping("/save")
+public ResponseEntity<ResponseDTO> insertEmpDataUseResponse(@Valid @RequestBody EmpPayrollDTO empDto){
+    EmployeePayrollDataModel employeeModel = empService.addEmpData(empDto);
+    ResponseDTO responseDTO = new ResponseDTO("New employee added",employeeModel);
+    ResponseEntity<ResponseDTO> response = new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    return response;
+}
 
-
-    //fetching all the data
-    @GetMapping("/getalldata")
-    public List<EmployeePayrollDataModel> fetchAllEmData(){
-        return empService.getAllEmpData();
-    }
     //update the exist employee data
-    @PutMapping("/updatedata/{id}")
-    public EmployeePayrollDataModel updateEmpDataDto(@Valid @RequestBody EmpPayrollDTO empDto,@PathVariable int id){
-        empModelList.add(empService.updateEmpDataDto(empDto,id));
-        return empService.updateEmpDataDto(empDto,id);
+    //using ResponseEntity
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ResponseDTO> updateEmpDataUseResponse(@Valid @RequestBody EmpPayrollDTO empDto,@PathVariable int id){
+        EmployeePayrollDataModel employeeModel = empService.updateEmpData(empDto,id);
+        ResponseDTO responseDTO = new ResponseDTO("existing employee data updated successfully",employeeModel);
+        ResponseEntity<ResponseDTO> response = new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        return response;
     }
-    //delete the data
-    @DeleteMapping("/deletedata/{empId}")
-    public void deleteEmployeePayrollData(@PathVariable int empId){
-        empService.deleteEmpData(empId);
+    //delete the data using Response Entity
+
+    @DeleteMapping("/delete/{empId}")
+    public ResponseEntity<ResponseDTO> deleteEmployeePayrollDataUseResponse(@PathVariable int empId){
+        EmployeePayrollDataModel employeeModel = empService.deleteEmpData(empId);
+        ResponseDTO responseDTO = new ResponseDTO("Deleted succesfully",employeeModel);
+        ResponseEntity<ResponseDTO> response = new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        return response;
+
     }
 
 }

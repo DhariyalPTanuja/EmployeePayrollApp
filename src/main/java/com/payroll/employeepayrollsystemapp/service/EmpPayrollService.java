@@ -4,6 +4,7 @@ import com.payroll.employeepayrollsystemapp.dto.EmpPayrollDTO;
 import com.payroll.employeepayrollsystemapp.exceptions.EmployeePayrollException;
 import com.payroll.employeepayrollsystemapp.model.EmployeePayrollDataModel;
 import com.payroll.employeepayrollsystemapp.repository.EmpPayrollRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 
 @Service
+@Slf4j
 public class EmpPayrollService implements IEmployeeService {
    @Autowired  //dependency injection  autowired repository object
     EmpPayrollRepo empRepository;
@@ -21,48 +23,48 @@ public class EmpPayrollService implements IEmployeeService {
             return employeePayrollDataModelList;
    }
    //Exception throw
-    public EmployeePayrollDataModel getEmpData(int empId){
-//        EmployeePayrollDataModel empGetObj = empRepository.findById(id).get();
-        return employeePayrollDataModelList.stream()
-                .filter(empData -> empData.getEmpId() == empId)
-                .findFirst()
-                .orElseThrow(() -> new EmployeePayrollException("Employee Not found"));
-    }
+//    public EmployeePayrollDataModel getEmpData(int empId) throws EmployeePayrollException{
+////        EmployeePayrollDataModel empGetObj = empRepository.findById(id).get();
+//        return employeePayrollDataModelList.stream()
+//                .filter(empData -> empData.getEmpId() == empId)
+//                .findFirst()
+//                .orElseThrow(() -> new EmployeePayrollException("Employee Not found"));
+//    }
     public String welcomeMsg() {
         return "welcome  to EmployeePayroll App";
     }
     //to add the employee data
-    public EmployeePayrollDataModel addEmpDataDto(EmpPayrollDTO empDto){
-        // EmployeePayrollDataModel empModel = null;
+    public EmployeePayrollDataModel addEmpData(EmpPayrollDTO empDto){
+       log.info("User using create Api to add data in database");
         EmployeePayrollDataModel empModel = new EmployeePayrollDataModel(empDto);
         return empRepository.save(empModel);
     }
 
-//    public EmployeePayrollDataModel getEmpData(int id){
-//        EmployeePayrollDataModel empGetObj = empRepository.findById(id).get();
-//        return empGetObj;
-//    }
+    public EmployeePayrollDataModel getEmpData(int id){
+       log.info("user retrieve all the data form database");
+        EmployeePayrollDataModel empGetObj = empRepository.findById(id).get();
+        return empGetObj;
+    }
     public List<EmployeePayrollDataModel> getAllEmpData(){
         List<EmployeePayrollDataModel> empList = empRepository.findAll();
         return empList;
     }
 
-    public EmployeePayrollDataModel updateEmpDataDto(EmpPayrollDTO empDto, int id){
-        EmployeePayrollDataModel empObj = new EmployeePayrollDataModel(empDto);
-        Optional<EmployeePayrollDataModel> empUpdateObj = empRepository.findById(id);
-        empUpdateObj.get().setName(empObj.getName());
-        empUpdateObj.get().setSalary(empObj.getSalary());
-        empUpdateObj.get().setGender(empObj.getGender());
-        empUpdateObj.get().setStartDate(empObj.getStartDate());
-        empUpdateObj.get().setNote(empObj.getNote());
-        empUpdateObj.get().setProfilePic(empObj.getProfilePic());
-        empUpdateObj.get().setDepartments(empObj.getDepartments());
-        empRepository.save(empUpdateObj.get());
-        return empUpdateObj.get();
+public EmployeePayrollDataModel updateEmpData(EmpPayrollDTO empDto, int id) {
+    Optional<EmployeePayrollDataModel> empUpdateObj = empRepository.findById(id);
+    EmployeePayrollDataModel empObj = new EmployeePayrollDataModel(id,empDto);
+   empRepository.save(empObj);
+     return  empObj;
 
     }
-    public void deleteEmpData(int id){
-        empRepository.deleteById(id);
+    public EmployeePayrollDataModel deleteEmpData(int empId) {
+        EmployeePayrollDataModel empGetObj = empRepository.findById(empId).get();
+        empRepository.deleteById(empId);
+       return employeePayrollDataModelList.stream()
+                .filter(empData -> empData.getEmpId() == empId)
+                .findFirst()
+                .orElseThrow(() -> new EmployeePayrollException("Employee Not found"));
     }
+
 
 }

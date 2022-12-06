@@ -1,7 +1,10 @@
 package com.payroll.employeepayrollsystemapp.exceptions;
 
-public class EmployeePayrollException  extends RuntimeException{
-    public EmployeePayrollException(String message){
+import com.payroll.employeepayrollsystemapp.dto.EmpPayrollDTO;
+
+public class EmployeePayrollException  extends RuntimeException {
+    public EmployeePayrollException(String message) {
         super(message);
     }
+
 }

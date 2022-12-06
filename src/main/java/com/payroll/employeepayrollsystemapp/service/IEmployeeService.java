@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface IEmployeeService {
     public String welcomeMsg();
-    public EmployeePayrollDataModel addEmpDataDto(EmpPayrollDTO empDto);
+    public EmployeePayrollDataModel addEmpData(EmpPayrollDTO empDto);
     public EmployeePayrollDataModel getEmpData(int id);
     public List<EmployeePayrollDataModel> getAllEmpData();
-    public EmployeePayrollDataModel updateEmpDataDto(EmpPayrollDTO empDto, int id);
-    public void deleteEmpData(int id);
+    public EmployeePayrollDataModel updateEmpData(EmpPayrollDTO empDto, int id);
+    public EmployeePayrollDataModel deleteEmpData(int id);
 
 }

@@ -16,6 +16,7 @@ public class EmployeePayrollExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ResponseDTO> handleMethodArgumentNotValidException(
+
             MethodArgumentNotValidException exception){
         List<ObjectError> errorList = exception.getBindingResult().getAllErrors();
         List<String> errMsg = errorList.stream()
